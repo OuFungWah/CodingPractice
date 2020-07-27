@@ -12,6 +12,8 @@ plugins {
     id 'java-library'
 }
 
+apply from: 'testing.gradle'
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -21,7 +23,7 @@ repositories {
 dependencies {
 
     // Rxjava 
-    implementation "io.reactivex.rxjava3:rxjava:3.0.4"
+    implementation LIB_RXJAVA
     
     // Align versions of all Kotlin components
     implementation platform('org.jetbrains.kotlin:kotlin-bom')

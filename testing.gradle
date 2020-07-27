@@ -1,0 +1,11 @@
+task commandLineTesting {
+    def stdOut = new ByteArrayOutputStream()
+    exec {
+        commandLine "ls"
+        standardOutput = stdOut
+//        println commandLine("git","status")
+    }
+    for (fileName in stdOut.toString().split("\n")) {
+        println "[$fileName]"
+    }
+}
