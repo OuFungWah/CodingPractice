@@ -20,6 +20,11 @@ package coding.practice.algorithm.string
 */
 
 /**
+ *
+ * 解题思路：
+ *
+ * 反向遍历、Int 值的边界情况
+ *
  * @see <a href="https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/5/strings/33/">链接</a>
  */
 class Question33 {
