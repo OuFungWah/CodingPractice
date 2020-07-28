@@ -1,9 +1,22 @@
 package programming.question
 
-
+/**
+ *
+ * a:{
+ *  b:{
+ *    c:{
+ *      d:"answer"
+ *    }
+ *  }
+ * }
+ *
+ *
+ *
+ */
 fun main() {
     val a = A()
-    println(findVal(a, "b.c.d", "default"))
+    val result = findVal(a, "b.c.d", "default")
+    println(result)
 }
 
 class A {
@@ -22,7 +35,7 @@ class C {
 }
 
 fun findVal(obj: Any, path: String, default: String): String {
-    val list = path.split(".")
+    val list: List<String> = path.split(".")
     var nowObj = obj
     list.forEachIndexed { index, memberName ->
         val member = findMember(nowObj, memberName) ?: return default
@@ -33,14 +46,19 @@ fun findVal(obj: Any, path: String, default: String): String {
 }
 
 fun findMember(obj: Any, valName: String): Any? {
-    println("----------$valName---------")
     val clazz = obj::class.java
-    println("clazzName = $clazz")
     val field = clazz.fields.firstOrNull {
-        println("memberName = ${it.name}")
         it.name == valName
     } ?: return null
-    println("fiedl = $field")
-    println("member = ${field.get(obj)}")
     return field.get(obj)
 }
+
+/**
+ * 用上一次的执行结果作为下一次的执行输入
+ */
+fun test(input: String): String{
+    val output = input
+    return test(output)
+}
+
+// 方法栈
