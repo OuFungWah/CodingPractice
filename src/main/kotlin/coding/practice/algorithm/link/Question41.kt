@@ -14,6 +14,9 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+/**
+ * @see <a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnarn7/">链接</a>
+ */
 class Solution {
     val head = ListNode(5).apply {
         next = ListNode(4).apply {
