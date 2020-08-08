@@ -47,20 +47,46 @@ class Question46 {
      *
      * 有个问题就是：如果这么做会完全改动链表，且不能记载位置
      */
-    fun hasCycle(head: ListNode?): Boolean {
+    fun hasCycle2(head: ListNode?): Boolean {
         val temp = ListNode(0)
         var cur = head
-        while (cur != null) {
-            if (cur.next == temp) {
-                return true
-            } else if (cur.next != null) {
-                val next = cur?.next
-                cur?.next = temp
-                cur = next
-            } else {
-                break
+        loop@ while (cur != null) {
+            when {
+                cur.next == temp -> {
+                    return true
+                }
+                cur.next != null -> {
+                    val next = cur?.next
+                    cur?.next = temp
+                    cur = next
+                }
+                else -> {
+                    break@loop
+                }
             }
         }
         return false
+    }
+
+    /**
+     * 思路：
+     * 1、双指针，分别快慢遍历
+     * 2、如果有环，指针早晚相遇
+     * 3、如果无环，指针早晚为空
+     */
+    fun hasCycle(head: ListNode?): Boolean {
+        var fast = head
+        var slow = head
+        while (true) {
+            fast = fast?.next?.next
+            slow = slow?.next
+            if (fast == null || slow == null) {
+                return false
+            } else if (fast == slow) {
+                return true
+            } else {
+                continue
+            }
+        }
     }
 }
