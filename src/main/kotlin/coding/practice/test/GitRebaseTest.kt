@@ -16,6 +16,7 @@ class Testing{
 
     val obj = Any()
 
+
     fun method(name : String){
         println("$name sleep start")
         synchronized(obj){
