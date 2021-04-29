@@ -1,19 +1,29 @@
 package coding.practice.chapter1
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableEmitter
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Function3
 import io.reactivex.rxjava3.processors.PublishProcessor
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
 import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 fun main() {
+    val processor = PublishProcessor.create<Long>()
+    processor.subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe{
+        Thread.sleep(1000)
+        println("Receive $it")
+    }
+    while (true){
+        Thread.sleep(500)
+        val number = System.currentTimeMillis()
+        println("Product $number")
+        processor.offer(number)
+    }
 }
 
 fun rangeTest() {
