@@ -74,7 +74,7 @@ class Context {
                     runBlocking(ctx1) {
                         delay(1000)
                         println("Coroutine ctx1. ${Thread.currentThread().name}")
-                        withContext(ctx2){
+                        withContext(ctx2) {
                             delay(500)
                             println("do Something in ctx2. ${Thread.currentThread().name}")
                         }
@@ -87,4 +87,54 @@ class Context {
         }
     }
 
+    fun run4() {
+        runBlocking {
+            val num1 = async(CoroutineName("Coroutine-ofh-1")) {
+                delay(500)
+                println("${Thread.currentThread().name}")
+                234
+            }
+            val num2 = async(CoroutineName("Coroutine-ofh-2")) {
+                delay(1000)
+                println("${Thread.currentThread().name}")
+                761
+            }
+            println("result = ${num1.await()} + ${num2.await()}")
+        }
+    }
+
+    fun run5(){
+        runBlocking {
+            launch(Dispatchers.IO + CoroutineName("Named-ofh-cor1")) {
+                delay(2000)
+                println("Coroutine named and has IO dispatcher. ${Thread.currentThread().name}")
+            }
+            delay(2050)
+            println("Done")
+        }
+    }
+
+    fun run6(){
+        val myScope = CoroutineScope(Dispatchers.Default)
+        runBlocking {
+            myScope.launch {
+                println("my scope launch 1, start. ${Thread.currentThread().name}")
+                delay(500)
+                println("my scope launch 1, end. ${Thread.currentThread().name}")
+            }
+            myScope.launch {
+                println("my scope launch 2, start. ${Thread.currentThread().name}")
+                delay(1500)
+                println("my scope launch 2, end. ${Thread.currentThread().name}")
+            }
+            myScope.launch {
+                println("my scope launch 3, start. ${Thread.currentThread().name}")
+                delay(99999)
+                println("my scope launch 3, end. ${Thread.currentThread().name}")
+            }
+            delay(3000)
+            myScope.cancel()
+            println("run6 done")
+        }
+    }
 }

@@ -6,5 +6,5 @@ fun main(){
 //    Basics().run10()
 //    CancelCoroutines().run5()
 //    Suspending().run3()
-    Context().run3()
+    Context().run6()
 }
