@@ -103,7 +103,7 @@ class Context {
         }
     }
 
-    fun run5(){
+    fun run5() {
         runBlocking {
             launch(Dispatchers.IO + CoroutineName("Named-ofh-cor1")) {
                 delay(2000)
@@ -114,8 +114,12 @@ class Context {
         }
     }
 
-    fun run6(){
+    fun run6() {
         val myScope = CoroutineScope(Dispatchers.Default)
+        runBlocking(myScope.coroutineContext) {
+            println("runBlocking in ${Thread.currentThread().name}")
+            delay(3000)
+        }
         runBlocking {
             myScope.launch {
                 println("my scope launch 1, start. ${Thread.currentThread().name}")
@@ -127,14 +131,43 @@ class Context {
                 delay(1500)
                 println("my scope launch 2, end. ${Thread.currentThread().name}")
             }
-            myScope.launch {
+            myScope.launch(Dispatchers.Unconfined) {
                 println("my scope launch 3, start. ${Thread.currentThread().name}")
-                delay(99999)
+                delay(4000)
                 println("my scope launch 3, end. ${Thread.currentThread().name}")
             }
             delay(3000)
             myScope.cancel()
+            delay(2000)
             println("run6 done")
         }
     }
+
+    fun run7(): Int {
+        val x = E_A.E_A_A
+        val y: S_A= S_A.S_A_A()
+        return when(x){
+            E_A.E_A_A -> 1
+            E_A.E_A_B -> 2
+            E_A.E_A_C -> 3
+        }
+//        return when (y) {
+//            is S_A.S_A_A -> 1
+//            is S_A.S_A_B -> 1
+//            is S_A.S_A_C -> 1
+//        }
+    }
+
+}
+
+enum class E_A {
+    E_A_A,
+    E_A_B,
+    E_A_C;
+}
+
+sealed class S_A {
+    class S_A_A : S_A()
+    class S_A_B : S_A()
+    class S_A_C : S_A()
 }
