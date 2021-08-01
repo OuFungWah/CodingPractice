@@ -1,0 +1,16 @@
+
+apply plugin: 'kotlin'
+apply plugin: 'java'
+apply plugin: 'java-library'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+}
+
+test {
+    useJUnitPlatform()
+}

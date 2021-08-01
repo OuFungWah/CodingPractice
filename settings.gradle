@@ -10,3 +10,4 @@
 rootProject.name = 'CodingPractice'
 
 include ':game'
+include ':chat-redesign'
